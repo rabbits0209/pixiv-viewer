@@ -33,8 +33,29 @@ jobs:
         with:
           cmd: build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./dist
+      - name: Setup SSH
+        run: |
+          # 将私钥写入文件并配置权限
+          mkdir -p ~/.ssh
+          echo "${{ secrets.TARGET_REPO_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          
+          # 添加 GitHub 到 known_hosts
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Clone & Force Push
+        run: |
+          # 克隆目标仓库
+          git clone git@github.com:rabbits0209/pixivpage.git
+          cd pixivpage
+
+          # 清空目标仓库并覆盖文件
+          git rm -rf .  # 删除所有现有文件
+          cp -r ../dist/* .  # 复制新文件
+
+          # 提交并强制推送
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Deploy: $(date '+%Y-%m-%d %H:%M:%S')"
+          git push -f origin HEAD:main  # 强制覆盖目标分支
