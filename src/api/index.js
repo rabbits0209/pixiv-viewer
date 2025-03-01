@@ -16,9 +16,8 @@ const isSupportWebP = (() => {
 })();
 
 const imgProxyList = [
-  'pximg.jad-sub-0.workers.dev',
-  'pximg.jad-sub-1.workers.dev',
-  'pximg.jad-sub-2.workers.dev',
+  'pixiv.tutuxka.eu.org',
+  'i.pixiv.re',
 ]
 
 const imgProxy = url => {
