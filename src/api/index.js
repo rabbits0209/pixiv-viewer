@@ -17,7 +17,6 @@ const isSupportWebP = (() => {
 
 const imgProxyList = [
   'pixiv.tutuxka.eu.org',
-  'i.pixiv.re',
 ]
 
 const imgProxy = url => {
