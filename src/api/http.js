@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 
-const baseURL = 'https://hibiapi.getloli.com/api/'
+const baseURL = 'https://hibiapi.cocomi.eu.org/api/'
 
 axios.defaults.timeout = 10000
 axios.defaults.headers.post['Content-Type'] = 'application/json'
